@@ -3,9 +3,55 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Coding Quiz</title>
+    <link rel="stylesheet" href="assets/style.css" />
   </head>
   <body>
-    <script src="scripttest.js"></script>
+    <div class="wrapper">
+      <header>
+        <h1>Coding Quiz</h1>
+      </header>
+      <div class="card">
+        <button id="generate" class="btn">Start Coding Quiz</button>
+      </div>
+      <form>
+        <ul>
+          <li>
+            <label for="questionOne"
+              >Question One: Select the answer with primitive data types</label
+            >
+            <select id="primitives">
+              <option value="boolean, string, numeric">
+                boolean, string, number
+              </option>
+              <option value="object, derived, array">
+                object, derived, array
+              </option>
+            </select>
+          </li>
+          <li>
+            <label for="questionTwo"
+              >Question Two: What does "global scope" mean?</label
+            >
+            <select id="globalscope">
+              <option
+                value="Occurs when you create a variable inside a function"
+              >
+                Occurs when you create a variable inside a function
+              </option>
+              <option
+                value="All parts of the code have access to functions in the global scope"
+              >
+                All parts of the code have access to functions in the global
+                scope
+              </option>
+            </select>
+          </li>
+        </ul>
+        <button id="save">SAVE</button>
+      </form>
+    </div>
+
+    <script src="assets/script.js"></script>
   </body>
 </html>
