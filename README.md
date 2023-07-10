@@ -10,11 +10,11 @@ Create a coding quiz that begins once the start button is clicked. The start but
 
 ## Link to the working version of the code
 
-https://github.com/Jacqueline-Stiehl/password-generator-javascript
+https://github.com/Jacqueline-Stiehl/web-api-coding-quiz-jstiehl
 
 ## URL of deployed application
 
-https://jacqueline-stiehl.github.io/password-generator-javascript/
+https://jacqueline-stiehl.github.io/web-api-coding-quiz-jstiehl/
 
 ## Acknowledgements
 
