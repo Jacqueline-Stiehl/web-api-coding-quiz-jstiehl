@@ -1,87 +1,156 @@
 var generateBtn = document.querySelector("#generate");
 
-var message = document.querySelector(".message");
-var timerElement = document.querySelector(".timer-count");
-var win = document.querySelector(".win");
-var lose = document.querySelector(".lose");
+var timer = document.querySelector(".time");
+var main = document.getElementById("#main");
+
+var secondsLeft = 20;
+
+var win = document.querySelector("#win");
+
 var winCounter = 0;
-var loseCounter = 0;
-var isWin = false;
-var timer;
-var timerCount;
+var wins;
+var losses;
+var totalPoints = 0;
 
-var questions = [
-  "Question One: Select the answer with primitive data types",
-  "Question Two: What does global scope mean?",
-];
-var answers = [
-  "boolean, string, numeric",
-  "object, derived, array",
-  "Occurs when you create a variable inside a function",
-  "All parts of the code have access to functions in the global scope",
-];
+var totalQuestions = 3;
+var correctAnswers = 0;
 
-var secondsLeft = 60;
+var stillPlaying = false;
 
-//this is called when the page loads
-function init() {
-  getWins();
-  getlosses();
+var saveButton = document.getElementById("save");
+
+function loadScores() {
+  var score = JSON.parse(localStorage.getItem("score"));
+  wins = score?.wins || 0;
+  losses = score?.losses || 0;
 }
 
-//this is called when the start button is clicked
-function startGame() {
-  isWin = false;
-  timerCount = 60;
-  //prevents start button from being clicked when game is in progress
-  generateBtn.disabled = true;
-  questions();
-  startTimer();
-}
+generateBtn.addEventListener("click", setTime);
 
-function startTimer() {
-  timer = setInterval(function () {
-    timerCount--;
-    timerElement.textContent = timerCount;
-    if (timerCount >= 0) {
-      if (isWin && timerCount > 0) {
-        clearInterval(timer);
-        winGame();
-      }
+function setTime(event) {
+  event.preventDefault();
+  loadScores();
+  stillPlaying = true;
+  correctAnswers = 0;
+  document.getElementById("q1").className = "show";
+  document.getElementById("string").className = "show";
+  var timerInterval = setInterval(function () {
+    secondsLeft--;
+
+    if (stillPlaying) {
+      // put win-game logic here
+      totalPoints += correctAnswers * 10;
+
+      wins++;
     }
-    if (timerCount === 0) {
-      clearInterval(timer);
-      loseGame();
+
+    timer.textContent = secondsLeft + " seconds left until game ends.";
+    if (secondsLeft === 0) {
+      losses++;
+      clearInterval(timerInterval);
+      sendMessage();
     }
-  }, 6000);
+  }, 2000);
 }
 
-//function questions(0) {
-//not sure what to add here to call first question in array
-//}
+function updateLocalStorage() {
+  var score = {
+    totalPoints: totalPoints,
+    initial: document.querySelector("#initial").value,
+  };
+  console.log(document.querySelector("#initial").value);
+  console.log(totalPoints);
+  localStorage.setItem("score", JSON.stringify(score));
+}
+
+function sendMessage() {
+  timer.textContent = "You have run out of time. Please try again.";
+}
+
+document.querySelector(".correct1").addEventListener("click", function () {
+  document.getElementById("q1").className = "hide";
+  document.getElementById("string").className = "hide";
+  document.getElementById("q2").className = "show";
+  document.getElementById("notequal").className = "show";
+  correctAnswers++;
+});
+
+document.querySelector(".wrong1").addEventListener("click", function () {
+  document.getElementById("q1").className = "hide";
+  document.getElementById("string").className = "hide";
+  secondsLeft = secondsLeft - 5;
+  document.getElementById("q2").className = "show";
+  document.getElementById("notequal").className = "show";
+});
+
+document.querySelector(".wrong2").addEventListener("click", function () {
+  document.getElementById("q1").className = "hide";
+  document.getElementById("string").className = "hide";
+  secondsLeft = secondsLeft - 5;
+  document.getElementById("q2").className = "show";
+  document.getElementById("notequal").className = "show";
+});
+
+document.querySelector(".correct2").addEventListener("click", function () {
+  document.getElementById("q2").className = "hide";
+  document.getElementById("notequal").className = "hide";
+  document.getElementById("q3").className = "show";
+  document.getElementById("variables").className = "show";
+  correctAnswers++;
+});
+
+document.querySelector(".wrong3").addEventListener("click", function () {
+  document.getElementById("q2").className = "hide";
+  document.getElementById("notequal").className = "hide";
+  secondsLeft = secondsLeft - 5;
+  document.getElementById("q3").className = "show";
+  document.getElementById("variables").className = "show";
+});
+
+document.querySelector(".wrong4").addEventListener("click", function () {
+  document.getElementById("q2").className = "hide";
+  document.getElementById("notequal").className = "hide";
+  secondsLeft = secondsLeft - 5;
+  document.getElementById("q3").className = "show";
+  document.getElementById("variables").className = "show";
+});
+
+document.querySelector(".correct3").addEventListener("click", function () {
+  document.getElementById("q3").className = "hide";
+  document.getElementById("variables").className = "hide";
+  document.getElementById("wins").className = "show";
+  document.getElementById("initial").className = "show";
+  correctAnswers++;
+  stillPlaying = false;
+});
+
+document.querySelector(".wrong5").addEventListener("click", function () {
+  document.getElementById("q3").className = "hide";
+  document.getElementById("variables").className = "hide";
+  secondsLeft = secondsLeft - 5;
+  document.getElementById("wins").className = "show";
+  document.getElementById("initial").className = "show";
+});
+
+document.querySelector(".wrong6").addEventListener("click", function () {
+  document.getElementById("q3").className = "hide";
+  document.getElementById("variables").className = "hide";
+  secondsLeft = secondsLeft - 5;
+  document.getElementById("wins").className = "show";
+  document.getElementById("initial").className = "show";
+});
+
+// });
 
 function winGame() {
-  message.textContent = "You won!";
   winCounter++;
   generateBtn.disabled = false;
   setWins();
 }
 
-function loseGame() {
-  message.textContent = "You lost. Game over.";
-  loseCounter++;
-  generateBtn.disabled = false;
-  setLosses();
-}
-
 function setWins() {
   win.textContent = winCounter;
   localStorage.setItem("winCount", winCounter);
-}
-
-function setLosses() {
-  lose.textContent = loseCounter;
-  localStorage.setItem("loseCount", loseCounter);
 }
 
 function getWins() {
@@ -94,58 +163,9 @@ function getWins() {
   win.textContent = winCounter;
 }
 
-function getlosses() {
-  var storedLosses = localStorage.getItem("loseCount");
-  if (storedLosses === null) {
-    loseCounter = 0;
-  } else {
-    loseCounter = storedLosses;
-  }
-  lose.textContent = loseCounter;
-}
-
-document.addEventListener("keydown", function (event) {
-  if (timerCount === 0) {
-    return;
-  }
-});
-
-generateBtn.addEventListener("click", startGame);
-
-init();
-
-var resetButton = document.querySelector(".reset-button");
-function resetGame() {
-  winCounter = 0;
-  loseCounter = 0;
-
-  setWins();
-  setLosses();
-}
-
-resetButton.addEventListener("click", resetGame);
-// function setTime() {
-//   var timerInterval = setInterval(function () {
-//     secondsLeft--;
-//     timeEl.textContent = secondsLeft + " seconds left until game ends.";
-
-//     if (secondsLeft === 0) {
-//       clearInterval(timerInterval);
-//       sendMessage();
-//     }
-//   }, 6000);
-// }
-
-function sendMessage() {
-  timeEl.textContent = "You have run out of time. Please try again.";
-}
-
-//setTime();
-
-var saveButton = document.getElementById("save");
-
 saveButton.addEventListener("click", function (event) {
   event.preventDefault();
+  updateLocalStorage();
 
   var userScore = {
     questionOne: true.value,
@@ -159,34 +179,19 @@ saveButton.addEventListener("click", function (event) {
   renderMessage();
 });
 
-// function renderMessage(){
-//     var scoreTotal = JSON.parse(localStorage.getItem("userScore"));
-//     if (scoreTotal !== null){
-//         document.querySelector(".message").textContent = "You have a score of " scoreTotal;
-//     }
-// }
+function renderMessage() {
+  document.querySelector(".message").textContent =
+    "You have a score of " + totalPoints;
+}
 
-var quizQuestions = {
-  //questionOne: primitiveTypes.value,
-  //questionTwo: globalScope.value,
-};
-console.log(quizQuestions);
-
-//questions for quiz:
-//primitive types
-//iteration
-//local vs global scope
-//objects/this
-//
-
-// GIVEN I am taking a code quiz
-// WHEN I click the start button
-// THEN a timer starts and I am presented with a question
-// WHEN I answer a question
-// THEN I am presented with another question
-// WHEN I answer a question incorrectly
-// THEN time is subtracted from the clock
-// WHEN all questions are answered or the timer reaches 0
-// THEN the game is over
+// Done--GIVEN I am taking a code quiz
+// Done--WHEN I click the start button
+// Done--THEN a timer starts and I am presented with a question
+// Done--WHEN I answer a question
+// Done--THEN I am presented with another question
+// Done--WHEN I answer a question incorrectly
+// Done--THEN time is subtracted from the clock
+// Done--WHEN all questions are answered or the timer reaches 0
+// Done--THEN the game is over
 // WHEN the game is over
 // THEN I can save my initials and my score

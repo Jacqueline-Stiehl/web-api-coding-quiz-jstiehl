@@ -13,43 +13,74 @@
       </header>
       <div class="card">
         <button id="generate" class="btn">Start Coding Quiz</button>
+        <h2 class="time" style="text-align: center"></h2>
+        <h3 id="wins" class="hide">Wins =</h3>
+        <input id="initial" class="hide" placeholder="Enter your initials" />
+        <h3 id="response"></h3>
+        <p id="main"></p>
       </div>
-      <form>
+      <section>
         <ul>
           <li>
-            <label for="questionOne"
-              >Question One: Select the answer with primitive data types</label
+            <label id="q1" class="hide" for="questionOne"
+              >Question One: A string variable is always enclosed in
+              what?</label
             >
-            <select id="primitives">
-              <option value="boolean, string, numeric">
-                boolean, string, number
-              </option>
-              <option value="object, derived, array">
-                object, derived, array
-              </option>
-            </select>
+            <div id="string" class="hide">
+              <button id="lose" class="wrong1" value="parentheses">
+                parentheses
+              </button>
+              <button
+                id="win"
+                class="correct1"
+                value="single or double quote marks"
+              >
+                single or double quote marks
+              </button>
+              <!-- <button id="lose" class="wrong1" value="question mark">
+                question mark
+              </button> -->
+              <button id="lose" class="wrong2" value="curly brackets">
+                curly brackets
+              </button>
+            </div>
           </li>
           <li>
-            <label for="questionTwo"
-              >Question Two: What does "global scope" mean?</label
+            <label id="q2" class="hide" for="questionTwo"
+              >Question Two: What symbol is put before the equal sign to show it
+              is not equal?</label
             >
-            <select id="globalscope">
-              <option
-                value="Occurs when you create a variable inside a function"
-              >
-                Occurs when you create a variable inside a function
-              </option>
-              <option
-                value="All parts of the code have access to functions in the global scope"
-              >
-                All parts of the code have access to functions in the global
-                scope
-              </option>
-            </select>
+            <div id="notequal" class="hide">
+              <button id="lose" class="wrong3" value="ampersand">
+                ampersand
+              </button>
+              <button id="lose" class="wrong4" value="question mark">
+                question mark
+              </button>
+              <button id="win" class="correct2" value="exlamation mark">
+                exclamation mark
+              </button>
+            </div>
+          </li>
+          <li>
+            <label id="q3" class="hide" for="questionThree"
+              >Question Three: Which variable type cannot be reassigned another
+              value?</label
+            >
+            <div id="variables" class="hide">
+              <button id="lose" class="wrong5" value="var">var</button>
+              <button id="lose" class="wrong6" value="let">let</button>
+              <button id="win" class="correct3" value="const">const</button>
+            </div>
           </li>
         </ul>
         <button id="save">SAVE</button>
+      </section>
+      <form id="userInitials" class="hide">
+        <input placeholder="initials" id="initial" />
+        <button id="submit">Submit</button>
       </form>
+      <h3 class="message"></h3>
     </div>
 
     <script src="assets/script.js"></script>
