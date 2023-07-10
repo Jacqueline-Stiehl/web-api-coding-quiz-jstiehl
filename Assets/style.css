@@ -4,3 +4,24 @@
 .show {
   display: block;
 }
+
+h1 {
+  color: blue;
+  font-size: 50px;
+}
+
+p {
+  font-size: 20px;
+}
+
+#generate {
+  color: #183ea8;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+#save {
+  background-color: rgb(243, 243, 171);
+  font-size: 20px;
+  color: red;
+}

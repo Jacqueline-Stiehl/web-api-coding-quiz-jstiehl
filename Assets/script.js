@@ -9,7 +9,7 @@ var win = document.querySelector("#win");
 
 var winCounter = 0;
 var wins;
-var losses;
+//var losses;
 var totalPoints = 0;
 
 var totalQuestions = 3;
@@ -40,13 +40,12 @@ function setTime(event) {
     if (stillPlaying) {
       // put win-game logic here
       totalPoints += correctAnswers * 10;
-
       wins++;
     }
 
     timer.textContent = secondsLeft + " seconds left until game ends.";
     if (secondsLeft === 0) {
-      losses++;
+      //losses++;
       clearInterval(timerInterval);
       sendMessage();
     }
@@ -122,6 +121,9 @@ document.querySelector(".correct3").addEventListener("click", function () {
   document.getElementById("initial").className = "show";
   correctAnswers++;
   stillPlaying = false;
+  secondsLeft = 0;
+  timer.textContent = "The game is over";
+  timer = 0;
 });
 
 document.querySelector(".wrong5").addEventListener("click", function () {
@@ -130,6 +132,10 @@ document.querySelector(".wrong5").addEventListener("click", function () {
   secondsLeft = secondsLeft - 5;
   document.getElementById("wins").className = "show";
   document.getElementById("initial").className = "show";
+  stillPlaying = false;
+  secondsLeft = 0;
+  timer.textContent = "The game is over";
+  timer = 0;
 });
 
 document.querySelector(".wrong6").addEventListener("click", function () {
@@ -138,6 +144,10 @@ document.querySelector(".wrong6").addEventListener("click", function () {
   secondsLeft = secondsLeft - 5;
   document.getElementById("wins").className = "show";
   document.getElementById("initial").className = "show";
+  stillPlaying = false;
+  secondsLeft = 0;
+  timer.textContent = "The game is over";
+  timer = 0;
 });
 
 // });
@@ -193,5 +203,5 @@ function renderMessage() {
 // Done--THEN time is subtracted from the clock
 // Done--WHEN all questions are answered or the timer reaches 0
 // Done--THEN the game is over
-// WHEN the game is over
-// THEN I can save my initials and my score
+// Done--WHEN the game is over
+// Done--THEN I can save my initials and my score
